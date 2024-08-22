@@ -25,7 +25,8 @@ while True:
     for (x, y, w, h) in faces:
         crop_image = frame[y:y+h, x:x+w]  
         resized_image = cv2.resize(crop_image, (50, 50)).flatten().reshape(1, -1)  
-
+        output = knn.predict(resized_image)
+        cv2.putText(frame, str(output[0]),(x, y-15), cv2.FONT_HERSHEY_COMPLEX, 1,(255, 255, 255), 1)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (50, 50, 255), 1)
 
     cv2.imshow("frame", frame)
@@ -35,3 +36,32 @@ while True:
 
 video.release()
 cv2.destroyAllWindows()
+
+
+
+
+
+
+
+
+
+# import pickle
+
+# # Load and check names.pkl
+# try:
+#     with open('data/names.pkl', 'rb') as f:
+#         labels = pickle.load(f)
+#         print("Contents of names.pkl (Labels):")
+#         print(labels)
+# except (EOFError, FileNotFoundError) as e:
+#     print(f"Error loading names.pkl: {e}")
+
+# # Load and check faces_data.pkl
+# try:
+#     with open('data/faces_data.pkl', 'rb') as f:
+#         faces_data = pickle.load(f)
+#         print("\nContents of faces_data.pkl (Faces Data):")
+#         print(faces_data)
+#         print("\nNumber of face data entries:", len(faces_data))
+# except (EOFError, FileNotFoundError) as e:
+#     print(f"Error loading faces_data.pkl: {e}")
