@@ -17,6 +17,8 @@ with open('data/faces_data.pkl', 'rb') as f:
 knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(FACES, LABELS)
 
+imgBackground = cv2.imread("background.png")
+
 while True:
     ret, frame = video.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -31,8 +33,8 @@ while True:
         cv2.rectangle(frame, (x, y-40), (x+w,y+h),(50,50, 255), -1)
         cv2.putText(frame, str(output[0]),(x, y-15), cv2.FONT_HERSHEY_COMPLEX, 1,(255, 255, 255), 1)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (50, 50, 255), 1)
-
-    cv2.imshow("frame", frame)
+    imgBackground[162:162 + 480, 55:55 + 640] = frame
+    cv2.imshow("frame", imgBackground)
     k = cv2.waitKey(1)
     if k == ord('q'):
         break
