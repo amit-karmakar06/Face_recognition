@@ -26,6 +26,9 @@ while True:
         crop_image = frame[y:y+h, x:x+w]  
         resized_image = cv2.resize(crop_image, (50, 50)).flatten().reshape(1, -1)  
         output = knn.predict(resized_image)
+        cv2.rectangle(frame, (x, y), (x+w,y+h),(0,0, 255), 1)
+        cv2.rectangle(frame, (x, y), (x+w,y+h),(50,50, 255), 2)
+        cv2.rectangle(frame, (x, y-40), (x+w,y+h),(50,50, 255), -1)
         cv2.putText(frame, str(output[0]),(x, y-15), cv2.FONT_HERSHEY_COMPLEX, 1,(255, 255, 255), 1)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (50, 50, 255), 1)
 
