@@ -31,7 +31,7 @@ while True:
     for (x, y, w, h) in faces:
         crop_image = frame[y:y+h, x:x+w]  
         resized_image = cv2.resize(crop_image, (50, 50)).flatten().reshape(1, -1)  
-        output = knn.predict(resized_image)
+        output = knn.predict(resized_image) 
         ts=time.time()
         date=datetime.fromtimestamp(ts).strftime("%d-%m-%y")
         timestamp=datetime.fromtimestamp(ts).strftime("%H-%M-%S")
@@ -48,12 +48,12 @@ while True:
     if k == ord('o'):
         if exist:
             with open("Attendence/Attendence_" + date + ".csv", "+a") as csvfile:
-                writer = csv.writer()
+                writer = csv.writer(csvfile)
                 writer.writerow(attendence)
             csvfile.close()
         else:
             with open("Attendence/Attendence_" + date + ".csv", "+a") as csvfile:
-                writer = csv.writer()
+                writer = csv.writer(csvfile)
                 writer.writerow(COL_NAMES)
                 writer.writerow(attendence)
             csvfile.close()
